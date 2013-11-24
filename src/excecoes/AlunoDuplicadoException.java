@@ -9,11 +9,16 @@ import javax.swing.JOptionPane;
  *
  * @author Joanacelle e Alexandre
  */
-public class ExceGui{
+public class AlunoDuplicadoException extends Exception{
     
-    //deu certo
-    public static void ExibeExceptionNumb() {
-    JOptionPane.showMessageDialog(null, "Entrada incorreta,digite apenas INTEIROs!", "Error", JOptionPane.ERROR_MESSAGE);
-}
+    public AlunoDuplicadoException() {
+        super("Aluno duplicado");
+    }
+    
+    public AlunoDuplicadoException(String msg) {
+        super(msg);
+    }
+    
+
     
 }

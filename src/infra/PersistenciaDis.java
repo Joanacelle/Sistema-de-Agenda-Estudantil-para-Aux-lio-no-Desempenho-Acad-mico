@@ -16,20 +16,19 @@ import java.util.LinkedList;
  *
  * @author Joanacelle e Alexandre
  */
-public class Persistencia {
+public class PersistenciaDis {
     
-    
-    private Aluno alu;
+   
     LinkedList<Disciplina> listaDisciplina = new LinkedList<>();
     private DataOutputStream output;
     private DataInputStream input;
     private boolean moreRecords = true;
         
-    public Persistencia() {
+    public PersistenciaDis() {
         setupLer();
         readRecords();
         cleanupLer();
-       System.err.println("Entrei na Leitura\n" );
+       //System.err.println("Entrei na Leitura\n" );
     }
         
     public void setupLer() {
@@ -52,9 +51,7 @@ public class Persistencia {
         String faltas;
         String bibliografia;
         String ementa;
-        String nomeAluno;
-        String nomeCurso;
-        String matricula;
+        
         try {
             while (moreRecords) {
                 
@@ -66,14 +63,10 @@ public class Persistencia {
                 faltas = input.readUTF();
                 bibliografia = input.readUTF();
                 ementa = input.readUTF();
-                nomeAluno = input.readUTF();
-                nomeCurso = input.readUTF();
-                matricula = input.readUTF();
-                
-                alu = new Aluno(nomeAluno, nomeCurso, matricula);
+                                
                 listaDisciplina.add(new Disciplina(codigo, nome,nivel,
                         Integer.parseInt(cargaHoraria),metodoAvaliacao,Integer.parseInt(faltas),
-                        bibliografia,ementa,alu));
+                        bibliografia,ementa));
                
             }
         } catch (EOFException eof) {
@@ -115,9 +108,6 @@ public class Persistencia {
                 output.writeUTF(""+a.getFalta());
                 output.writeUTF(a.getBibliiografia());
                 output.writeUTF(a.getEmenta());
-                output.writeUTF(""+alu.getNomeAluno());
-                output.writeUTF(""+alu.getNomeCurso());
-                output.writeUTF(""+alu.getMatricula());
             }
         } catch (IOException e) {
             System.err.println("Erro durante gravação no arquivo\n" + e.toString());
@@ -134,8 +124,8 @@ public class Persistencia {
             System.exit(1);
         }
     }
-    public void Gravando(){
-        System.err.println("Entrei Pra gravar\n" );
+    public void GravandoDis(){
+        //System.err.println("Entrei Pra gravar\n" );
         setupGravar();
         addRecords();
         cleanupGravar(); //grava dados, fecha arquivo

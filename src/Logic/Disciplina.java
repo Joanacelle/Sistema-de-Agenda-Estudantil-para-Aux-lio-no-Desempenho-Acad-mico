@@ -18,10 +18,9 @@ public class Disciplina {
     private int falta;
     private String bibliiografia;
     private String ementa;
-    private Aluno aluno;
-    
+        
     public Disciplina(String codigo,String nome, String nivel, int carga,
-    String metodo,int falta,String bib, String ementa, Aluno aluno){
+    String metodo,int falta,String bib, String ementa){
     
         this.codigo = codigo;
         this.nome = nome;
@@ -31,7 +30,7 @@ public class Disciplina {
         this.falta = falta;
         this.bibliiografia = bib;
         this.ementa = ementa;
-        this.aluno = aluno;
+        
      }
 
     public String getNome() {

@@ -5,8 +5,7 @@ package Logic;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.LinkedList;
-import javax.swing.JOptionPane;
-//import Excecoes.AdUsuario;      
+import javax.swing.JOptionPane; 
         
 /**
  *

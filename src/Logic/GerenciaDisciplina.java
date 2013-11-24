@@ -23,7 +23,7 @@ public class GerenciaDisciplina {
     
     
      public void CadastraDis(String codigo,String nome,String nivel,
-     int carga,String metodo,int falta,String bib,String ementa,Aluno aluno){ 
+     int carga,String metodo,int falta,String bib,String ementa){ 
             
          boolean cadastra = true; 
          
@@ -33,7 +33,7 @@ public class GerenciaDisciplina {
          }
          
          if(cadastra){
-         disciplina = new Disciplina(codigo,nome,nivel,carga,metodo,falta,bib,ementa,aluno);
+         disciplina = new Disciplina(codigo,nome,nivel,carga,metodo,falta,bib,ementa);
          listaDisciplina.add(disciplina);
          JOptionPane.showMessageDialog(null, "Disciplina cadastrada com sucesso!",
          "Informações da Disciplina", JOptionPane.INFORMATION_MESSAGE);
