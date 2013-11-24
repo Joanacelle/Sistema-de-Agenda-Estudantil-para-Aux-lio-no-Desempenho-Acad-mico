@@ -35,7 +35,7 @@ public class SistemaDeAgendaEstudantilInterface {
         PersistenciaDis gravandoDis = new PersistenciaDis();
         PersistenciaAluno gravandoAl = new PersistenciaAluno();
 
-
+//deu certo aprendi
         while (grava) {
 
             int op = Integer.parseInt(JOptionPane.showInputDialog("1 - Cadastrar Aluno"
