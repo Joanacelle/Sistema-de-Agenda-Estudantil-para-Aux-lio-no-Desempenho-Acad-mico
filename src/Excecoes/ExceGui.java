@@ -11,9 +11,9 @@ import javax.swing.JOptionPane;
  */
 public class ExceGui{
     
-    
+    //deu certo
     public static void ExibeExceptionNumb() {
-    JOptionPane.showMessageDialog(null, "Entrada incorreta,digite apenas INTEIROS!", "Error", JOptionPane.ERROR_MESSAGE);
+    JOptionPane.showMessageDialog(null, "Entrada incorreta,digite apenas INTEIROs!", "Error", JOptionPane.ERROR_MESSAGE);
 }
     
 }
