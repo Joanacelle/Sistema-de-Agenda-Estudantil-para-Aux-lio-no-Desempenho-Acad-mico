@@ -4,15 +4,14 @@
  */
 package gui;
 
-import Excecoes.AlunoDuplicadoException;
-import Logic.Aluno;
-import Logic.Disciplina;
-import Logic.GerenciaAluno;
-import Logic.GerenciaDisciplina;
+import Excecoes.AlunoException;
+import Logic.*;
 import java.util.LinkedList;
 import javax.swing.JOptionPane;
 import Infra.*;
-import Logic.GerenciaAluno1;
+import excecoes.DisciplinaException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -25,17 +24,12 @@ public class SistemaDeAgendaEstudantilInterface {
      */
     public static void main(String[] args) {
 
-        Aluno aluno = new Aluno("", "", "");
-        GerenciaAluno gerente = new GerenciaAluno(aluno);
-        GerenciaAluno1 gerente1 = new GerenciaAluno1();
-
+        LinkedList<Aluno> listaAluno = new LinkedList<>();
+        GerenciaAluno gerente = new GerenciaAluno(listaAluno);
         LinkedList<Disciplina> listaDisciplina = new LinkedList<>();
         GerenciaDisciplina gerenteDis = new GerenciaDisciplina(listaDisciplina);
         boolean grava = true;
-        PersistenciaDis gravandoDis = new PersistenciaDis();
-        PersistenciaAluno gravandoAl = new PersistenciaAluno();
 
-//deu certo aprendi
         while (grava) {
 
             int op = Integer.parseInt(JOptionPane.showInputDialog("1 - Cadastrar Aluno"
@@ -50,22 +44,19 @@ public class SistemaDeAgendaEstudantilInterface {
 
                     while (true) {
                         try {
-                            gerente1.cadastraAluno(JOptionPane.showInputDialog("Digite seu nome"),
+                            gerente.cadastraAluno(JOptionPane.showInputDialog("Digite seu nome"),
                                     JOptionPane.showInputDialog("Digite o nome do curso"),
                                     JOptionPane.showInputDialog("Digite sua matricula"));
                             break;
-                        } catch (AlunoDuplicadoException e) {
+                        } catch (AlunoException e) {
                             JOptionPane.showMessageDialog(null, e.getMessage(), "Resposta", JOptionPane.ERROR_MESSAGE);
                         }
-                        
-
                     }
-                    JOptionPane.showMessageDialog(null, "Cadastro Efetuado com Sucesso",        
-                            "Informações do Aluno", JOptionPane.INFORMATION_MESSAGE);
+
                     break;
                 case 2:
                     try {
-                        gerenteDis.CadastraDis(JOptionPane.showInputDialog("Digite o codigo da disciplina[xxxx]:"),
+                        gerenteDis.cadastraDis(JOptionPane.showInputDialog("Digite o codigo da disciplina[xxxx]:"),
                                 JOptionPane.showInputDialog("Digite o nome da disciplina: "),
                                 JOptionPane.showInputDialog("Digite o nível de dificuldade[F,M,D]:"),
                                 Integer.parseInt(JOptionPane.showInputDialog("Digite a carga horaria[xx]: ")),
@@ -73,29 +64,36 @@ public class SistemaDeAgendaEstudantilInterface {
                                 Integer.parseInt(JOptionPane.showInputDialog("Digite o numero de faltas[xx]:")),
                                 JOptionPane.showInputDialog("Digite a bibliografia do curso:"),
                                 JOptionPane.showInputDialog("Digite a ementa do curso:"));
+
                     } catch (NumberFormatException e) {
-                        //ExceGui.ExibeExceptionNumb();
+                        JOptionPane.showMessageDialog(null, e.getMessage(), "ERRO", JOptionPane.ERROR_MESSAGE);
+                    }
+                    catch (DisciplinaException e) {
+                        JOptionPane.showMessageDialog(null, e.getMessage(), "ERRO", JOptionPane.ERROR_MESSAGE);
                     }
                     break;
 
                 case 3:
-                    if (gerente.confirma()) {
-                        gerente.ConsultaAluno();
-                    } else {
-                        JOptionPane.showMessageDialog(null, "Ainda não Consta Cadastro!", "Resposta", JOptionPane.ERROR_MESSAGE);
+                    try {
+                        gerente.consultaAlunos(JOptionPane.showInputDialog("Digite a matricula do aluno"));
+                    } catch (AlunoException e) {
+                        JOptionPane.showMessageDialog(null, e.getMessage(), "ERRO", JOptionPane.ERROR_MESSAGE);
                     }
+
                     break;
 
                 case 4:
-                    gerenteDis.ConsultaDis(JOptionPane.showInputDialog("Digite o codigo da disciplina:"));
+                    try {
+                        gerenteDis.consultaDis(JOptionPane.showInputDialog("Digite o codigo da disciplina:"));
+                    } catch (DisciplinaException e) {
+                        JOptionPane.showMessageDialog(null, e.getMessage(), "ERRO", JOptionPane.ERROR_MESSAGE);
+                    }
                     break;
 
                 case 5:
-                    //try{             
+
                     grava = false;
-                    gravandoAl.GravandoAluno();
-                    gravandoDis.GravandoDis();
-                    //}catch(NullPointerException n){}
+
                     break;
 
             }//fim do swhich
