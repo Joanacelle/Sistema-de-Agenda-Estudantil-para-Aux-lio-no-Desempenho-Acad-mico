@@ -15,15 +15,14 @@ import javax.swing.JOptionPane;
  */
 public class GerenciaDisciplina {
 
-    private Disciplina disciplina;
+    
     private  LinkedList<Disciplina> listaDisciplina = new LinkedList<>();
     
     public GerenciaDisciplina(LinkedList<Disciplina> listaDisciplina) {
         this.listaDisciplina = listaDisciplina;
     }
 
-    public void cadastraDis(String codigo, String nome, String nivel,
-            int carga, String metodo, int falta, String bib, String ementa) throws DisciplinaException{
+    public void cadastraDis(Disciplina disciplina,String codigo) throws DisciplinaException{
 
         boolean cadastra = true;
 
@@ -34,7 +33,7 @@ public class GerenciaDisciplina {
         }
 
         if (cadastra) {
-            disciplina = new Disciplina(codigo, nome, nivel, carga, metodo, falta, bib, ementa);
+            
             listaDisciplina.add(disciplina);
             throw new DisciplinaException("Disciplina cadastrada com sucesso!");
         } else {

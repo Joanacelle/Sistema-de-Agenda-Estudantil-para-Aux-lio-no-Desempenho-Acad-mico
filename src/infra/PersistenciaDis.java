@@ -14,7 +14,7 @@ import java.util.LinkedList;
 
 /**
  *
- * @author Joanacelle e Alexandre
+ * @author Joanacelle 
  */
 public class PersistenciaDis {
     
