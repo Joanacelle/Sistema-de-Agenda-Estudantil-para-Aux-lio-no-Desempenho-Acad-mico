@@ -6,7 +6,7 @@ package Logic;
 
 /**
  *
- * @author Joanacelle e Thiago
+ * @author Joanacelle
  */
 public class Disciplina {
     

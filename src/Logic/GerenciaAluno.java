@@ -6,21 +6,17 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author Joanacelle e Alexandre
+ * @author Joanacelle
  */
 public class GerenciaAluno {
 
-    private Aluno aluno;
     private LinkedList<Aluno> listaAluno = new LinkedList<>();
 
     public GerenciaAluno(LinkedList<Aluno> listaAluno) {
         this.listaAluno = listaAluno;
     }
 
-    public void cadastraAluno(String nome, String curso, String mat) throws AlunoException {
-
-
-        aluno = new Aluno(nome, curso, mat);
+    public void cadastraAluno(String mat, Aluno aluno) throws AlunoException {
 
         if (!confirma(mat)) {
             throw new AlunoException("Erro de cadastro: aluno duplicado");
