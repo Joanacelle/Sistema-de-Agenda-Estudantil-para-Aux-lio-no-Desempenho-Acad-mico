@@ -21,13 +21,9 @@ import logic.Facade;
  */
 public class SistemaDeAgendaEstudantilInterface {
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) throws ValidaException {
 
-        Facade f = new Facade();
-
+        Facade f = Facade.getInstance();
         boolean grava = true;
 
         while (grava) {
@@ -41,27 +37,25 @@ public class SistemaDeAgendaEstudantilInterface {
             switch (op) {
                 case 1:
 
-
-                    while (true) {
-                        try {
-                            f.cadastraAluno(JOptionPane.showInputDialog("Digite seu nome"),
-                                    JOptionPane.showInputDialog("Digite o nome do curso"),
-                                    JOptionPane.showInputDialog("Digite sua matricula"));
-                            break;
-                        } catch (AlunoException e) {
-                            JOptionPane.showMessageDialog(null, e.getMessage(), "!!!", JOptionPane.ERROR_MESSAGE);
-                        }
+                    try {
+                        f.cadastraAluno(JOptionPane.showInputDialog("Digite seu nome \n [minimo de 5 maximo de 300 letras]"),
+                                JOptionPane.showInputDialog("Digite o nome do curso \n [minimo de 5 maximo de 300 letras]"),
+                                JOptionPane.showInputDialog("Digite sua matricula \n [Deve conter 8 numeros]"));
+                        break;
+                    } catch (AlunoException e) {
+                        JOptionPane.showMessageDialog(null, e.getMessage(), "!!!", JOptionPane.ERROR_MESSAGE);
                     }
+
 
                     break;
                 case 2:
                     try {
-                        f.cadastraDis(JOptionPane.showInputDialog("Digite o codigo da disciplina[xxxx]:"),
-                                JOptionPane.showInputDialog("Digite o nome da disciplina: "),
+                        f.cadastraDis(JOptionPane.showInputDialog("Digite o codigo da disciplina \n [Deve conter 8 numeros]:"),
+                                JOptionPane.showInputDialog("Digite o nome da disciplina: \n [minimo de 5 maximo de 300 letras] "),
                                 JOptionPane.showInputDialog("Digite o nível de dificuldade[F,M,D]:"),
-                                Integer.parseInt(JOptionPane.showInputDialog("Digite a carga horaria[xx]: ")),
+                                Integer.parseInt(JOptionPane.showInputDialog("Digite a carga horaria: \n [minimo de 20 maximo de 60 horas] ")),
                                 JOptionPane.showInputDialog("Digite o metodo de avaliação[P,T]:"),
-                                Integer.parseInt(JOptionPane.showInputDialog("Digite o numero de faltas[xx]:")),
+                                Integer.parseInt(JOptionPane.showInputDialog("Digite o numero de faltas: \n [minimo de 1 maximo de 30 faltas]")),
                                 JOptionPane.showInputDialog("Digite a bibliografia do curso:"),
                                 JOptionPane.showInputDialog("Digite a ementa do curso:"));
 
@@ -91,6 +85,8 @@ public class SistemaDeAgendaEstudantilInterface {
 
                 case 5:
 
+                    f.grava();
+                    
                     grava = false;
 
                     break;

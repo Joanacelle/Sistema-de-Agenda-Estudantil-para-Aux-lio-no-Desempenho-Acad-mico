@@ -1,6 +1,8 @@
 package logic;
 
 import Excecoes.AlunoException;
+import Infra.PersistenciaAluno;
+import Infra.PersistenciaDis;
 import Logic.Aluno;
 import Logic.Disciplina;
 import Logic.GerenciaAluno;
@@ -24,18 +26,34 @@ public class Facade {
     private Aluno aluno;
     private Disciplina disciplina;
     private Validacao v = new Validacao();
+    private static Facade f = null;
+    private PersistenciaAluno gravaAluno = PersistenciaAluno.getInstance();
+    private PersistenciaDis gravaDis = PersistenciaDis.getInstance();
+
+    private Facade() {
+    }
+
+    public synchronized static Facade getInstance() {
+
+        if (f == null) {
+            f = new Facade();
+        }
+
+        return f;
+
+    }
 
     public void cadastraAluno(String nome, String curso, String mat) throws ValidaException, AlunoException {
 
-        if (v.validaLetras(nome)&& v.validaLetras(curso) && v.validaNumeros(mat)) {
-            
+        if (v.validaLetras(nome) && v.validaLetras(curso) && v.validaNumeros(mat)) {
+
             aluno = new Aluno(nome, curso, mat);
             a.cadastraAluno(mat, aluno);
-            
+
         } else {
             //falar com o professor sobre essa parte do código
-            JOptionPane.showMessageDialog(null,"ERRO! Tente novamente mais tarde!","ERRO", JOptionPane.ERROR_MESSAGE);
-                        
+            JOptionPane.showMessageDialog(null, "ERRO! Digite conforme indicado no campo!", "ERRO", JOptionPane.ERROR_MESSAGE);
+            //throw new ValidaException("Digite conforme indicado no campo!");
         }
     }
 
@@ -45,14 +63,31 @@ public class Facade {
     }
 
     public void cadastraDis(String codigo, String nome, String nivel,
-            int carga, String metodo, int falta, String bib, String ementa) throws DisciplinaException {
+            int carga, String metodo, int falta, String bib, String ementa) throws DisciplinaException, ValidaException {
 
-        disciplina = new Disciplina(codigo, nome, nivel, carga, metodo, falta, bib, ementa);
-        d.cadastraDis(disciplina, codigo);
+        if (v.validaNumeros(codigo) && v.validaLetras(nome) && v.validaNomeIgual(nivel, "F", "M", "D")
+                && v.validaIntervalo(carga, 20, 60) && v.validaNomeIgual(metodo, "P", "T", "T")
+                && v.validaIntervalo(falta, 1, 30) && v.validaTexto(bib) && v.validaTexto(ementa)) {
+
+            disciplina = new Disciplina(codigo, nome, nivel, carga, metodo, falta, bib, ementa);
+            d.cadastraDis(disciplina, codigo);
+
+        } else {
+            //falar com o professor sobre essa parte do código
+            JOptionPane.showMessageDialog(null, "ERRO! Digite conforme indicado no campo!", "ERRO", JOptionPane.ERROR_MESSAGE);
+        }
+
     }
 
     public void consultaDis(String cod) throws DisciplinaException {
 
         d.consultaDis(cod);
+    }
+
+    public void grava() {
+
+        //gravaAluno.GravandoAluno();
+        gravaDis.GravandoDis();
+    
     }
 }

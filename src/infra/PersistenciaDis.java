@@ -23,13 +23,25 @@ public class PersistenciaDis {
     private DataOutputStream output;
     private DataInputStream input;
     private boolean moreRecords = true;
-        
-    public PersistenciaDis() {
+    private static PersistenciaDis p = null;
+    
+    private PersistenciaDis() {
         setupLer();
         readRecords();
         cleanupLer();
        //System.err.println("Entrei na Leitura\n" );
     }
+    
+    public synchronized static PersistenciaDis getInstance() {
+
+        if (p == null) {
+            p = new PersistenciaDis();
+        }
+
+        return p;
+
+    }
+
         
     public void setupLer() {
         //Abre arquivo para leitura

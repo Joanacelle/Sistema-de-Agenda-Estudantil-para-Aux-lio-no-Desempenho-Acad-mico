@@ -35,6 +35,7 @@ public class GerenciaDisciplina {
         if (cadastra) {
             
             listaDisciplina.add(disciplina);
+            //falar com o professor sobre essa parte
             throw new DisciplinaException("Disciplina cadastrada com sucesso!");
         } else {
             throw new DisciplinaException("Já consta esse código em nossos registros!");

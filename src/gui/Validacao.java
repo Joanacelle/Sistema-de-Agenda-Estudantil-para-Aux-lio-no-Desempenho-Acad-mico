@@ -41,4 +41,35 @@ public class Validacao {
         }
         return false;
     }
+
+    public boolean validaNomeIgual(String igual, String a, String b, String c) {
+
+        if ((igual.equalsIgnoreCase(a)) || (igual.equalsIgnoreCase(b)) || (igual.equalsIgnoreCase(c))) {
+
+            return true;
+
+        }
+
+        return false;
+    }
+
+    public boolean validaIntervalo(int numero, int minimo, int maximo) {
+
+        if ((numero >= minimo) && (numero <= maximo)) {
+
+            return true;
+        }
+
+        return false;
+    }
+
+    public boolean validaTexto(String texto) {
+
+        if (texto.length() < 200) {
+
+            return true;
+        }
+
+        return false;
+    }
 }

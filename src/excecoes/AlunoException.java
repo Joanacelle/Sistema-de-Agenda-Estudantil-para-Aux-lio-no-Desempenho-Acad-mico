@@ -7,7 +7,7 @@ import java.lang.Exception;
 import javax.swing.JOptionPane;
 /**
  *
- * @author Joanacelle e Alexandre
+ * @author Joanacelle
  */
 public class AlunoException extends Exception{
     
