@@ -1,6 +1,7 @@
 package Logic;
 
 import Excecoes.AlunoException;
+import infra.DAOFactory;
 import java.util.LinkedList;
 import javax.swing.JOptionPane;
 
@@ -10,18 +11,18 @@ import javax.swing.JOptionPane;
  */
 public class GerenciaAluno {
 
-    private LinkedList<Aluno> listaAluno = new LinkedList<>();
+    private DAOFactory daofactory;
 
-    public GerenciaAluno(LinkedList<Aluno> listaAluno) {
-        this.listaAluno = listaAluno;
+    public GerenciaAluno(int escolha) {
+        daofactory = DAOFactory.getDAOFactory(escolha);
     }
 
     public void cadastraAluno(String mat, Aluno aluno) throws AlunoException {
 
-        if (!confirma(mat)) {
+        if (!confirma(aluno)) {
             throw new AlunoException("Erro de cadastro: aluno duplicado");
         } else {
-            listaAluno.add(aluno);
+            daofactory.getAlunoDAO().cadastrar(aluno);
             throw new AlunoException("Aluno cadastrado com sucesso");
         }
 
@@ -29,35 +30,24 @@ public class GerenciaAluno {
 
     public void consultaAlunos(String mat) throws AlunoException {
 
-        /*String linhasAlunos = "";
-         for (Aluno aluno : listaAluno) {
-         //if (aluno.getMatricula().equals(mat)) {
-         linhasAlunos = linhasAlunos + aluno.getMatricula() + "matricula " + aluno.getNomeAluno() + "nome " + aluno.getNomeCurso() + "curso\n";
-         //}
-         }
-         return linhasAlunos;
-         REVER ESSA PARTE DO CODIGO MAIS TARDE, NÃO ESTÁ IMPRIMINDO CORRETAMENTE*/
-        boolean achou = false;
-        for (Aluno a : listaAluno) {
-            if (a.getMatricula().equals(mat)) {
-                JOptionPane.showMessageDialog(null, "Aluno: " + a.getNomeAluno() + "\n Curso: " + a.getNomeCurso()
-                        + "\n Matricula: " + a.getMatricula(), "Aluno Encontrado", JOptionPane.INFORMATION_MESSAGE);
-                achou = true;
-            }
-        }
+        Aluno aluno = daofactory.getAlunoDAO().consultar(mat);
+        if (aluno != null) {
+            JOptionPane.showMessageDialog(null, "Aluno: " + aluno.getNomeAluno() + "\n Curso: " + aluno.getNomeCurso()
+                    + "\n Matricula: " + aluno.getMatricula(), "Aluno Encontrado", JOptionPane.INFORMATION_MESSAGE);
 
-        if (achou == false) {
+        } else {
             throw new AlunoException("Aluno não encontrado!");
         }
+
     }
 
-    public boolean confirma(String matricula) {
-        for (Aluno a : listaAluno) {
-            if (a.getMatricula().equals(matricula)) {
-                return false;
-            }
-        }
+    public boolean confirma(Aluno aluno) {
 
+        Aluno a = daofactory.getAlunoDAO().consultar(aluno);
+        
+        if (a != null) {
+            return false;
+        }
         return true;
     }
 }

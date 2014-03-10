@@ -3,6 +3,7 @@
  * and open the template in the editor.
  */
 package Infra;
+
 import Logic.*;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -14,35 +15,33 @@ import java.util.LinkedList;
 
 /**
  *
- * @author Joanacelle 
+ * @author Joanacelle
  */
 public class PersistenciaDis {
-    
-   
-    LinkedList<Disciplina> listaDisciplina = new LinkedList<>();
+
+    private static LinkedList<Disciplina> listaDisciplina;
     private DataOutputStream output;
     private DataInputStream input;
     private boolean moreRecords = true;
     private static PersistenciaDis p = null;
-    
-    private PersistenciaDis() {
+
+    private PersistenciaDis(LinkedList<Disciplina> disciplina) {
+        listaDisciplina = disciplina;
         setupLer();
         readRecords();
         cleanupLer();
-       //System.err.println("Entrei na Leitura\n" );
     }
-    
-    public synchronized static PersistenciaDis getInstance() {
+
+    public synchronized static PersistenciaDis getInstance(LinkedList<Disciplina> disciplina) {
 
         if (p == null) {
-            p = new PersistenciaDis();
+            p = new PersistenciaDis(disciplina);
         }
 
         return p;
 
     }
 
-        
     public void setupLer() {
         //Abre arquivo para leitura
         try {
@@ -51,8 +50,9 @@ public class PersistenciaDis {
             System.err.println("Falha na Abertura do Arquivo para Leitura\n" + e.toString());
             System.exit(1);
         }
-        
-    } 
+
+    }
+
     public void readRecords() {
 //Carrega todo o conteúdo do arquivo na Coleção agenda
         String codigo;
@@ -63,10 +63,10 @@ public class PersistenciaDis {
         String faltas;
         String bibliografia;
         String ementa;
-        
+
         try {
             while (moreRecords) {
-                
+
                 codigo = input.readUTF();
                 nome = input.readUTF();
                 nivel = input.readUTF();
@@ -75,11 +75,11 @@ public class PersistenciaDis {
                 faltas = input.readUTF();
                 bibliografia = input.readUTF();
                 ementa = input.readUTF();
-                                
-                listaDisciplina.add(new Disciplina(codigo, nome,nivel,
-                        Integer.parseInt(cargaHoraria),metodoAvaliacao,Integer.parseInt(faltas),
-                        bibliografia,ementa));
-               
+
+                listaDisciplina.add(new Disciplina(codigo, nome, nivel,
+                        Integer.parseInt(cargaHoraria), metodoAvaliacao, Integer.parseInt(faltas),
+                        bibliografia, ementa));
+
             }
         } catch (EOFException eof) {
             moreRecords = false;
@@ -88,6 +88,7 @@ public class PersistenciaDis {
             System.exit(1);
         }
     }
+
     public void cleanupLer() {
         //Fechar o arquivo, após ter sido descarregado na coleção
         try {
@@ -97,7 +98,7 @@ public class PersistenciaDis {
             System.exit(1);
         }
     }
-       
+
     public void setupGravar() {
         //Abre arquivo para gravar
         try {
@@ -115,9 +116,9 @@ public class PersistenciaDis {
                 output.writeUTF(a.getCodigo());
                 output.writeUTF(a.getNome());
                 output.writeUTF(a.getNivel());
-                output.writeUTF(""+a.getCargaHoraria());
+                output.writeUTF("" + a.getCargaHoraria());
                 output.writeUTF(a.getMetodoAvaliacao());
-                output.writeUTF(""+a.getFalta());
+                output.writeUTF("" + a.getFalta());
                 output.writeUTF(a.getBibliiografia());
                 output.writeUTF(a.getEmenta());
             }
@@ -136,14 +137,13 @@ public class PersistenciaDis {
             System.exit(1);
         }
     }
-    public void GravandoDis(){
-        //System.err.println("Entrei Pra gravar\n" );
+
+    public void gravandoDis() {
+
         setupGravar();
         addRecords();
         cleanupGravar(); //grava dados, fecha arquivo
-                
-        
-    } 
-    
-    
+
+
+    }
 }

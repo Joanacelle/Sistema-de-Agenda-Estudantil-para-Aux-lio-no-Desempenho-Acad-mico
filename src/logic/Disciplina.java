@@ -10,6 +10,7 @@ package Logic;
  */
 public class Disciplina {
     
+    //private String matricula;
     private String codigo;
     private String nome;
     private String nivel;
@@ -18,10 +19,12 @@ public class Disciplina {
     private int falta;
     private String bibliiografia;
     private String ementa;
+    
         
-    public Disciplina(String codigo,String nome, String nivel, int carga,
+    public Disciplina(String codigo, String nome, String nivel, int carga,
     String metodo,int falta,String bib, String ementa){
     
+        //this.matricula = matricula;
         this.codigo = codigo;
         this.nome = nome;
         this.nivel = nivel;
@@ -30,6 +33,7 @@ public class Disciplina {
         this.falta = falta;
         this.bibliiografia = bib;
         this.ementa = ementa;
+        
         
      }
 
@@ -60,13 +64,13 @@ public class Disciplina {
     public String getEmenta() {
         return ementa;
     }
-
+/*
+    public String getMatricula() {
+        return matricula;
+    }
+*/
     public void setNome(String nome) {
         this.nome = nome;
-    }
-
-    public void setNivel(String nivel) {
-        this.nivel = nivel;
     }
 
     public void setCargaHoraria(int cargaHoraria) {
@@ -75,10 +79,6 @@ public class Disciplina {
 
     public void setMetodoAvaliacao(String metodoAvaliacao) {
         this.metodoAvaliacao = metodoAvaliacao;
-    }
-
-    public void setFalta(int falta) {
-        this.falta = falta;
     }
 
     public void setBibliiografia(String bibliiografia) {
@@ -93,8 +93,4 @@ public class Disciplina {
         return codigo;
     }
 
-    public void setCodigo(String codigo) {
-        this.codigo = codigo;
-    }
-    
      }

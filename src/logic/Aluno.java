@@ -30,15 +30,6 @@ public class Aluno {
 
     public void setNomeAluno(String nomeAluno) {
         this.nomeAluno = nomeAluno;
-    }
-
-    public void setNomeCurso(String nomeCurso) {
-        this.nomeCurso = nomeCurso;
-    }
-
-    public void setMatricula(String matricula) {
-        this.matricula = matricula;
-    }
-    
+    }  
          
 }

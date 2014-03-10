@@ -19,24 +19,25 @@ import java.util.LinkedList;
  */
 public class PersistenciaAluno {
 
-    private Aluno alu;
+    private static LinkedList<Aluno> listaAluno;
     private DataOutputStream output;
     private DataInputStream input;
     private boolean moreRecords = true;
     private static PersistenciaAluno p = null;
 
-    private PersistenciaAluno() {
+    private PersistenciaAluno(LinkedList<Aluno> aluno) {
 
+        listaAluno = aluno;
         setupLer();
         readRecords();
         cleanupLer();
-        //System.err.println("Entrei na Leitura\n" );
+
     }
 
-    public synchronized static PersistenciaAluno getInstance() {
+    public synchronized static PersistenciaAluno getInstance(LinkedList<Aluno> aluno) {
 
         if (p == null) {
-            p = new PersistenciaAluno();
+            p = new PersistenciaAluno(aluno);
         }
 
         return p;
@@ -66,8 +67,7 @@ public class PersistenciaAluno {
                 nomeCurso = input.readUTF();
                 matricula = input.readUTF();
 
-                alu = new Aluno(nomeAluno, nomeCurso, matricula);
-
+                listaAluno.add(new Aluno(nomeAluno, nomeCurso, matricula));
             }
         } catch (EOFException eof) {
             moreRecords = false;
@@ -101,10 +101,12 @@ public class PersistenciaAluno {
         //Carrega toda a coleção no arquivo
         try {
 
-            output.writeUTF(alu.getNomeAluno());
-            output.writeUTF(alu.getNomeCurso());
-            output.writeUTF(alu.getMatricula());
+            for (Aluno a : listaAluno) {
+                output.writeUTF(a.getNomeAluno());
+                output.writeUTF(a.getNomeCurso());
+                output.writeUTF(a.getMatricula());
 
+            }
         } catch (IOException e) {
             System.err.println("Erro durante gravação no arquivo\n" + e.toString());
             System.exit(1);
@@ -121,12 +123,10 @@ public class PersistenciaAluno {
         }
     }
 
-    public void GravandoAluno() {
-        //System.err.println("Entrei Pra gravar\n" );
+    public void gravandoAluno() {
+
         setupGravar();
         addRecords();
         cleanupGravar(); //grava dados, fecha arquivo
-
-
     }
 }

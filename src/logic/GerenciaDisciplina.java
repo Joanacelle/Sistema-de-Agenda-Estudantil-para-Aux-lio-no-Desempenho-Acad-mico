@@ -6,6 +6,7 @@ package Logic;
 
 import Excecoes.AlunoException;
 import excecoes.DisciplinaException;
+import infra.DAOFactory;
 import java.util.LinkedList;
 import javax.swing.JOptionPane;
 
@@ -15,50 +16,42 @@ import javax.swing.JOptionPane;
  */
 public class GerenciaDisciplina {
 
-    
-    private  LinkedList<Disciplina> listaDisciplina = new LinkedList<>();
-    
-    public GerenciaDisciplina(LinkedList<Disciplina> listaDisciplina) {
-        this.listaDisciplina = listaDisciplina;
+    private DAOFactory daofactory;
+
+    public GerenciaDisciplina(int escolha) {
+
+        daofactory = DAOFactory.getDAOFactory(escolha);
+
+
     }
 
-    public void cadastraDis(Disciplina disciplina,String codigo) throws DisciplinaException{
+    public void cadastraDis(Disciplina disciplina, String codigo) throws DisciplinaException {
 
         boolean cadastra = true;
-
-        for (Disciplina d : listaDisciplina) {
-            if (d.getCodigo().equals(codigo)) {
-                cadastra = false;
-            }
+        Disciplina dis = daofactory.getDisciplinaDAO().consultar(disciplina);
+        if (dis != null) {
+            cadastra = false;
         }
-
         if (cadastra) {
-            
-            listaDisciplina.add(disciplina);
-            //falar com o professor sobre essa parte
+            daofactory.getDisciplinaDAO().cadastrar(disciplina);
             throw new DisciplinaException("Disciplina cadastrada com sucesso!");
         } else {
             throw new DisciplinaException("Já consta esse código em nossos registros!");
         }
 
 
-
     }
     //REVER ESSA PARTE DO CÓDIGO MAIS TARDE!
+
     public void consultaDis(String cod) throws DisciplinaException {
-
-        boolean achou = false;
-        for (Disciplina d : listaDisciplina) {
-            if (d.getCodigo().equals(cod)) {
-                JOptionPane.showMessageDialog(null, "Disciplina: " + d.getNome() + "\n Nivel: " + d.getNivel()
-                        + "\n Carga: " + d.getCargaHoraria() + "\n Metodo de Avaliação: " + d.getMetodoAvaliacao()
-                        + "\n Numero de Faltas: " + d.getFalta() + "\n Bibliografia: " + d.getBibliiografia()
-                        + "\n Ementa da Disciplina: " + d.getEmenta(), "Disciplina Encontrada", JOptionPane.INFORMATION_MESSAGE);
-                achou = true;
-            }
-        }
-
-        if (achou == false) {
+        
+        Disciplina d = daofactory.getDisciplinaDAO().consultar(cod);
+        if (d != null) {
+            JOptionPane.showMessageDialog(null, "Disciplina: " + d.getNome() + "\n Nivel: " + d.getNivel()
+                    + "\n Carga: " + d.getCargaHoraria() + "\n Metodo de Avaliação: " + d.getMetodoAvaliacao()
+                    + "\n Numero de Faltas: " + d.getFalta() + "\n Bibliografia: " + d.getBibliiografia()
+                    + "\n Ementa da Disciplina: " + d.getEmenta(), "Disciplina Encontrada", JOptionPane.INFORMATION_MESSAGE);
+        } else {
             throw new DisciplinaException("Disciplina não encontrada!");
         }
 

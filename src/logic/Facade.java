@@ -1,8 +1,6 @@
 package logic;
 
 import Excecoes.AlunoException;
-import Infra.PersistenciaAluno;
-import Infra.PersistenciaDis;
 import Logic.Aluno;
 import Logic.Disciplina;
 import Logic.GerenciaAluno;
@@ -10,7 +8,6 @@ import Logic.GerenciaDisciplina;
 import excecoes.DisciplinaException;
 import excecoes.ValidaException;
 import gui.Validacao;
-import java.util.LinkedList;
 import javax.swing.JOptionPane;
 
 /**
@@ -19,24 +16,25 @@ import javax.swing.JOptionPane;
  */
 public class Facade {
 
-    private LinkedList<Logic.Aluno> listaAluno = new LinkedList<>();
-    private GerenciaAluno a = new GerenciaAluno(listaAluno);
-    private LinkedList<Logic.Disciplina> listaDisciplina = new LinkedList<>();
-    private GerenciaDisciplina d = new GerenciaDisciplina(listaDisciplina);
+    private GerenciaAluno a;
     private Aluno aluno;
     private Disciplina disciplina;
-    private Validacao v = new Validacao();
     private static Facade f = null;
-    private PersistenciaAluno gravaAluno = PersistenciaAluno.getInstance();
-    private PersistenciaDis gravaDis = PersistenciaDis.getInstance();
+    private Validacao v;
+    private GerenciaDisciplina d;
 
-    private Facade() {
+    private Facade(int escolha) {
+
+        v = new Validacao();
+        d = new GerenciaDisciplina(escolha);
+        a = new GerenciaAluno(escolha);
+
     }
 
-    public synchronized static Facade getInstance() {
+    public synchronized static Facade getInstance(int escolha) {
 
         if (f == null) {
-            f = new Facade();
+            f = new Facade(escolha);
         }
 
         return f;
@@ -82,12 +80,5 @@ public class Facade {
     public void consultaDis(String cod) throws DisciplinaException {
 
         d.consultaDis(cod);
-    }
-
-    public void grava() {
-
-        //gravaAluno.GravandoAluno();
-        gravaDis.GravandoDis();
-    
     }
 }

@@ -5,14 +5,9 @@
 package gui;
 
 import Excecoes.AlunoException;
-import Logic.*;
-import java.util.LinkedList;
-import javax.swing.JOptionPane;
-import Infra.*;
 import excecoes.DisciplinaException;
 import excecoes.ValidaException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import logic.Facade;
 
 /**
@@ -23,7 +18,10 @@ public class SistemaDeAgendaEstudantilInterface {
 
     public static void main(String[] args) throws ValidaException {
 
-        Facade f = Facade.getInstance();
+
+        int escolha = Integer.parseInt(JOptionPane.showInputDialog("1 - Gravar em arquivo"
+                + "\n2 - Gravar em memoria"));
+        Facade f = Facade.getInstance(escolha);
         boolean grava = true;
 
         while (grava) {
@@ -85,8 +83,8 @@ public class SistemaDeAgendaEstudantilInterface {
 
                 case 5:
 
-                    f.grava();
-                    
+                    //f.grava();
+
                     grava = false;
 
                     break;
