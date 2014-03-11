@@ -4,25 +4,22 @@
  */
 package infra;
 
-import Logic.Aluno;
-import Logic.Disciplina;
-
 /**
  *
  * @author Joanacelle
  */
 public class GravarMemoria extends DAOFactory {
-    
-    public AlunoDAO getAlunoDAO() {
-        
-        return null;
-        
-    }
 
-    
-    public DisciplinaDAO getDisciplinaDAO() {
-        
-        return null;
-       
+   
+    public DAO getInstanciaDAO(int escolha) {
+
+        if (escolha == 1) {
+
+            return new MemoriaAlunoDAO();
+            
+        } else {
+
+            return new MemoriaDisciplinaDAO();
+        }
     }
 }

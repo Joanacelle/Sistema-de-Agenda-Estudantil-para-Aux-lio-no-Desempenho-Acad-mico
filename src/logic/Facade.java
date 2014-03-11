@@ -16,11 +16,12 @@ import javax.swing.JOptionPane;
  */
 public class Facade {
 
-    private GerenciaAluno a;
+    
     private Aluno aluno;
     private Disciplina disciplina;
     private static Facade f = null;
     private Validacao v;
+    private GerenciaAluno a;
     private GerenciaDisciplina d;
 
     private Facade(int escolha) {

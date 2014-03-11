@@ -11,8 +11,8 @@ import java.util.LinkedList;
  *
  * @author Joanacelle
  */
-public class MemoriaDisciplinaDAO implements DisciplinaDAO <Disciplina> {
-    
+public class MemoriaDisciplinaDAO implements DAO<Disciplina> {
+
     private static LinkedList<Disciplina> listaDisciplina;
 
     public MemoriaDisciplinaDAO() {
@@ -21,32 +21,24 @@ public class MemoriaDisciplinaDAO implements DisciplinaDAO <Disciplina> {
 
     }
 
-   
-    public Disciplina get(String s) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    
     public void cadastrar(Disciplina disciplina) {
-      
-    listaDisciplina.add(disciplina);
+
+        listaDisciplina.add(disciplina);
+
     }
 
-   
-    public Disciplina consultar(Disciplina disciplina) {
-    
-    for (Disciplina d : listaDisciplina) {
+    public Disciplina consultar(String cod) {
 
-            if (disciplina.getCodigo().equals(d)) {
-            
+        for (Disciplina d : listaDisciplina) {
+
+            if (cod.equals(d)) {
+
                 return d;
-                
+
             }
         }
 
         return null;
-        
-    }
 
-   
+    }
 }

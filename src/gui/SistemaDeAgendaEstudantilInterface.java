@@ -17,11 +17,13 @@ import logic.Facade;
 public class SistemaDeAgendaEstudantilInterface {
 
     public static void main(String[] args) throws ValidaException {
-
+/*
 
         int escolha = Integer.parseInt(JOptionPane.showInputDialog("1 - Gravar em arquivo"
                 + "\n2 - Gravar em memoria"));
-        Facade f = Facade.getInstance(escolha);
+        Facade f = Facade.getInstance(escolha);*/
+        Facade f = Facade.getInstance(2);//preciso sabr aqui se e aluno ou disciplina?
+        
         boolean grava = true;
 
         while (grava) {

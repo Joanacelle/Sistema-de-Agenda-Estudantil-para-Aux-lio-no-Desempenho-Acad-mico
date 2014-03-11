@@ -17,7 +17,7 @@ import java.util.LinkedList;
  *
  * @author Joanacelle
  */
-public class ArquivoDisciplinaDAO implements DisciplinaDAO <Disciplina>{
+public class ArquivoDisciplinaDAO implements DAO<Disciplina> {
 
     private DataOutputStream output;
     private DataInputStream input;
@@ -37,10 +37,10 @@ public class ArquivoDisciplinaDAO implements DisciplinaDAO <Disciplina>{
 
     }
 
-    public void cadastrar(Disciplina disciplina){
+    public void cadastrar(Disciplina disciplina) {
 
         try {
-            
+
             output = new DataOutputStream(new FileOutputStream("agenda.dat", false));
 
             //for (Disciplina a : listaDisciplina) {
@@ -62,7 +62,7 @@ public class ArquivoDisciplinaDAO implements DisciplinaDAO <Disciplina>{
         }
     }
 
-    public Disciplina consultar(Disciplina disciplina) {
+    public Disciplina consultar(String cod) {
 
         try {
             input = new DataInputStream(new FileInputStream("agenda.dat"));
@@ -92,9 +92,9 @@ public class ArquivoDisciplinaDAO implements DisciplinaDAO <Disciplina>{
                 bibliografia = input.readUTF();
                 ementa = input.readUTF();
 
-                if (disciplina.getCodigo().equals(codigo)) {
-                    return new Disciplina(codigo,nome,nivel,Integer.parseInt(cargaHoraria),
-                            metodoAvaliacao,Integer.parseInt(faltas),bibliografia,ementa);
+                if (cod.equals(codigo)) {
+                    return new Disciplina(codigo, nome, nivel, Integer.parseInt(cargaHoraria),
+                            metodoAvaliacao, Integer.parseInt(faltas), bibliografia, ementa);
                 }
 
             }
@@ -109,11 +109,4 @@ public class ArquivoDisciplinaDAO implements DisciplinaDAO <Disciplina>{
 
 
     }
-
-    
-    @Override
-    public Disciplina get(String s) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
 }

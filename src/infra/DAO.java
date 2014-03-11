@@ -10,12 +10,9 @@ import Logic.Aluno;
  *
  * @author Joanacelle
  */
-public interface AlunoDAO <G> {
-
-    G get(String s);
+public interface DAO<G> {
 
     void cadastrar(G g);
 
-    Aluno consultar(G g);
-
+    G consultar(String string);
 }

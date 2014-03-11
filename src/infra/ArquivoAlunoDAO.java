@@ -16,7 +16,7 @@ import java.io.IOException;
  *
  * @author Joanacelle
  */
-public class ArquivoAlunoDAO implements AlunoDAO <Aluno>{
+public class ArquivoAlunoDAO implements DAO<Aluno> {
 
     private DataOutputStream output;
     private DataInputStream input;
@@ -35,7 +35,7 @@ public class ArquivoAlunoDAO implements AlunoDAO <Aluno>{
         return p;
 
     }
-    
+
     public Aluno get(String s) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
@@ -63,7 +63,7 @@ public class ArquivoAlunoDAO implements AlunoDAO <Aluno>{
 
     }
 
-    public Aluno consultar(Aluno aluno) {
+    public Aluno consultar(String mat) {
 
         try {
             input = new DataInputStream(new FileInputStream("aluno.dat"));
@@ -82,8 +82,9 @@ public class ArquivoAlunoDAO implements AlunoDAO <Aluno>{
                 nomeCurso = input.readUTF();
                 matricula = input.readUTF();
 
-                if (aluno.getMatricula().equals(matricula)) {
-                    return new Aluno(nomeAluno, nomeCurso, matricula);
+                if (mat.equals(matricula)) {
+                    Aluno aluno = new Aluno(nomeAluno, nomeCurso, matricula);
+                    return aluno;
                 }
 
             }
@@ -99,6 +100,4 @@ public class ArquivoAlunoDAO implements AlunoDAO <Aluno>{
 
 
     }
-
-   
 }

@@ -11,13 +11,13 @@ import java.util.LinkedList;
  *
  * @author Joanacelle
  */
-public class MemoriaAlunoDAO implements AlunoDAO {
+public class MemoriaAlunoDAO implements DAO<Aluno> {
 
     private static LinkedList<Aluno> listaAluno;
 
     public MemoriaAlunoDAO() {
 
-        
+        listaAluno = new LinkedList<>();
     }
 
     public void cadastrar(Aluno aluno) {
@@ -25,36 +25,17 @@ public class MemoriaAlunoDAO implements AlunoDAO {
         listaAluno.add(aluno);
     }
 
-    public Aluno consultar(Aluno aluno) {
+    public Aluno consultar(String mat) {
 
         for (Aluno a : listaAluno) {
 
-            if (aluno.getMatricula().equals(a.getMatricula())) {
-            
+            if (mat.equals(a.getMatricula())) {
+
                 return a;
-                
+
             }
         }
 
         return null;
     }
-
-    @Override
-    public Object get(String s) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
-    public void cadastrar(Object g) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
-    public Aluno consultar(Object g) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    
-
-    
 }

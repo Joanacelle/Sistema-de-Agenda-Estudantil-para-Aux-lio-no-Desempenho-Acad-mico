@@ -4,24 +4,22 @@
  */
 package infra;
 
-import Logic.Aluno;
-import Logic.Disciplina;
-import java.util.LinkedList;
-
 /**
  *
  * @author Joanacelle
  */
 public class GravarArquivo extends DAOFactory {
 
-    
-    public AlunoDAO getAlunoDAO() {
+    public DAO getInstanciaDAO(int escolha) {
 
-        return ArquivoAlunoDAO.getInstance();
-    }
+        if (escolha == 1) {
 
-    public DisciplinaDAO getDisciplinaDAO() {
+            return ArquivoAlunoDAO.getInstance();
 
-        return ArquivoDisciplinaDAO.getInstance();
+        } else {
+
+            return ArquivoDisciplinaDAO.getInstance();
+
+        }
     }
 }
