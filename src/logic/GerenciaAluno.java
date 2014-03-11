@@ -15,8 +15,7 @@ public class GerenciaAluno {
     public GerenciaAluno(int escolha) {
 
         daofactory = (DAOFactory) DAOFactory.getDAOFactory(escolha);
-        //daofactory.getInstanciaDAO(1);
-
+        
     }
 
     public void cadastraAluno(String mat, Aluno aluno) throws AlunoException {
@@ -36,7 +35,7 @@ public class GerenciaAluno {
     public void consultaAlunos(String mat) throws AlunoException {
 
         Aluno aluno = (Aluno) daofactory.getInstanciaDAO(1).consultar(mat);
-
+        
         if (aluno != null) {
 
             JOptionPane.showMessageDialog(null, "Aluno: " + aluno.getNomeAluno() + "\n Curso: " + aluno.getNomeCurso()
