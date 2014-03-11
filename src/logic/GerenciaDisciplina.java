@@ -4,10 +4,8 @@
  */
 package Logic;
 
-import Excecoes.AlunoException;
 import excecoes.DisciplinaException;
 import infra.DAOFactory;
-import java.util.LinkedList;
 import javax.swing.JOptionPane;
 
 /**
