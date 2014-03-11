@@ -20,10 +20,10 @@ public abstract class DAOFactory {
         switch (escolha) {
 
             case memoria:
-                return new GravarMemoria();//deve haver uma escolha aqui se aluno ou disciplina
+                return new GravarMemoria();
 
             case arquivo:
-                return new GravarArquivo();//deve haver uma escolha aqui se aluno ou disciplina
+                return new GravarArquivo();
 
             default:
                 return null;

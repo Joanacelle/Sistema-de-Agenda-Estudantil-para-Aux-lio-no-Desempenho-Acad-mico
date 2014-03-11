@@ -11,6 +11,8 @@ import java.io.EOFException;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -36,29 +38,28 @@ public class ArquivoAlunoDAO implements DAO<Aluno> {
 
     }
 
-    public Aluno get(String s) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
+    
     public void cadastrar(Aluno aluno) {
 
         try {
-            output = new DataOutputStream(new FileOutputStream("aluno.dat", false));
+            output = new DataOutputStream(new FileOutputStream("aluno.dat", true));
 
-            //for (Aluno a : listaAluno) {
+            
             output.writeUTF(aluno.getNomeAluno());
             output.writeUTF(aluno.getNomeCurso());
             output.writeUTF(aluno.getMatricula());
 
-            // }
-
+            
             output.flush();
             output.close();
-
+            
         } catch (IOException e) {
             System.err.println("Erro durante gravação no arquivo\n" + e.toString());
             System.exit(1);
         }
+        
+            
+
 
 
     }
@@ -66,15 +67,18 @@ public class ArquivoAlunoDAO implements DAO<Aluno> {
     public Aluno consultar(String mat) {
 
         try {
+            
             input = new DataInputStream(new FileInputStream("aluno.dat"));
+            
         } catch (IOException e) {
+            
             System.err.println("Falha na Abertura do Arquivo para Leitura\n" + e.toString());
             System.exit(1);
         }
-
         String nomeAluno;
         String nomeCurso;
         String matricula;
+        
         try {
             while (moreRecords) {
 
@@ -83,8 +87,7 @@ public class ArquivoAlunoDAO implements DAO<Aluno> {
                 matricula = input.readUTF();
 
                 if (mat.equals(matricula)) {
-                    Aluno aluno = new Aluno(nomeAluno, nomeCurso, matricula);
-                    return aluno;
+                    return new Aluno(nomeAluno, nomeCurso, matricula);
                 }
 
             }
@@ -95,7 +98,7 @@ public class ArquivoAlunoDAO implements DAO<Aluno> {
             System.err.println("Erro durante leitura do arquivo\n" + e.toString());
             System.exit(1);
         }
-
+        moreRecords = true;
         return null;
 
 

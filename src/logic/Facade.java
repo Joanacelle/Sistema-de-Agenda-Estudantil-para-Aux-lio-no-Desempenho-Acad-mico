@@ -1,6 +1,6 @@
 package logic;
 
-import Excecoes.AlunoException;
+import excecoes.AlunoException;
 import Logic.Aluno;
 import Logic.Disciplina;
 import Logic.GerenciaAluno;
@@ -56,7 +56,7 @@ public class Facade {
         }
     }
 
-    public void consultaAlunos(String mat) throws AlunoException {
+    public void consultaAlunos(String mat)throws AlunoException {
 
         a.consultaAlunos(mat);
     }

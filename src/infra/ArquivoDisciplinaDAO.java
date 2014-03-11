@@ -11,7 +11,6 @@ import java.io.EOFException;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.LinkedList;
 
 /**
  *
@@ -41,9 +40,9 @@ public class ArquivoDisciplinaDAO implements DAO<Disciplina> {
 
         try {
 
-            output = new DataOutputStream(new FileOutputStream("agenda.dat", false));
+            output = new DataOutputStream(new FileOutputStream("agenda.dat", true));
 
-            //for (Disciplina a : listaDisciplina) {
+            
             output.writeUTF(disciplina.getCodigo());
             output.writeUTF(disciplina.getNome());
             output.writeUTF(disciplina.getNivel());
@@ -52,7 +51,7 @@ public class ArquivoDisciplinaDAO implements DAO<Disciplina> {
             output.writeUTF("" + disciplina.getFalta());
             output.writeUTF(disciplina.getBibliiografia());
             output.writeUTF(disciplina.getEmenta());
-            //}
+            
 
             output.flush();
             output.close();
@@ -105,6 +104,7 @@ public class ArquivoDisciplinaDAO implements DAO<Disciplina> {
             System.err.println("Erro durante leitura do arquivo\n" + e.toString());
             System.exit(1);
         }
+        moreRecords = true;
         return null;
 
 

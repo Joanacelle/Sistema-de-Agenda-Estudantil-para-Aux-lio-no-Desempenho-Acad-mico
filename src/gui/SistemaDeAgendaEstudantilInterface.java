@@ -4,7 +4,7 @@
  */
 package gui;
 
-import Excecoes.AlunoException;
+import excecoes.AlunoException;
 import excecoes.DisciplinaException;
 import excecoes.ValidaException;
 import javax.swing.JOptionPane;
@@ -17,82 +17,94 @@ import logic.Facade;
 public class SistemaDeAgendaEstudantilInterface {
 
     public static void main(String[] args) throws ValidaException {
-/*
+
 
         int escolha = Integer.parseInt(JOptionPane.showInputDialog("1 - Gravar em arquivo"
                 + "\n2 - Gravar em memoria"));
-        Facade f = Facade.getInstance(escolha);*/
-        Facade f = Facade.getInstance(2);//preciso sabr aqui se e aluno ou disciplina?
+        Facade f = Facade.getInstance(escolha);
+        int escolha2 = Integer.parseInt(JOptionPane.showInputDialog("1 - Interface Janela"
+                + "\n2 - Interface Linha"));
         
-        boolean grava = true;
+        FactoryInterface fabrica = new Interface();
+        InterfaceJanela janela = fabrica.criaInterfaceJanela();
+        InterfaceLinha linha = fabrica.criaInterfaceLinha();
+        
+        if(escolha2 == 1){
+        janela.getJanela(f);
+        }else{
+        linha.getLinha(f);
+        }     
 
-        while (grava) {
+        /*                
+         boolean grava = true;
 
-            int op = Integer.parseInt(JOptionPane.showInputDialog("1 - Cadastrar Aluno"
-                    + "\n2 - Cadastrar Disciplina"
-                    + "\n3 - Consultar Aluno"
-                    + "\n4 - Consultar Disciplina"
-                    + "\n5 - Sair"));
+         while (grava) {
 
-            switch (op) {
-                case 1:
+         int op = Integer.parseInt(JOptionPane.showInputDialog("1 - Cadastrar Aluno"
+         + "\n2 - Cadastrar Disciplina"
+         + "\n3 - Consultar Aluno"
+         + "\n4 - Consultar Disciplina"
+         + "\n5 - Sair"));
 
-                    try {
-                        f.cadastraAluno(JOptionPane.showInputDialog("Digite seu nome \n [minimo de 5 maximo de 300 letras]"),
-                                JOptionPane.showInputDialog("Digite o nome do curso \n [minimo de 5 maximo de 300 letras]"),
-                                JOptionPane.showInputDialog("Digite sua matricula \n [Deve conter 8 numeros]"));
-                        break;
-                    } catch (AlunoException e) {
-                        JOptionPane.showMessageDialog(null, e.getMessage(), "!!!", JOptionPane.ERROR_MESSAGE);
-                    }
+         switch (op) {
+         case 1:
+
+         try {
+         f.cadastraAluno(JOptionPane.showInputDialog("Digite seu nome \n [minimo de 5 maximo de 300 letras]"),
+         JOptionPane.showInputDialog("Digite o nome do curso \n [minimo de 5 maximo de 300 letras]"),
+         JOptionPane.showInputDialog("Digite sua matricula \n [Deve conter 8 numeros]"));
+         break;
+         } catch (AlunoException e) {
+         JOptionPane.showMessageDialog(null, e.getMessage(), "!!!", JOptionPane.INFORMATION_MESSAGE);
+         }
 
 
-                    break;
-                case 2:
-                    try {
-                        f.cadastraDis(JOptionPane.showInputDialog("Digite o codigo da disciplina \n [Deve conter 8 numeros]:"),
-                                JOptionPane.showInputDialog("Digite o nome da disciplina: \n [minimo de 5 maximo de 300 letras] "),
-                                JOptionPane.showInputDialog("Digite o nível de dificuldade[F,M,D]:"),
-                                Integer.parseInt(JOptionPane.showInputDialog("Digite a carga horaria: \n [minimo de 20 maximo de 60 horas] ")),
-                                JOptionPane.showInputDialog("Digite o metodo de avaliação[P,T]:"),
-                                Integer.parseInt(JOptionPane.showInputDialog("Digite o numero de faltas: \n [minimo de 1 maximo de 30 faltas]")),
-                                JOptionPane.showInputDialog("Digite a bibliografia do curso:"),
-                                JOptionPane.showInputDialog("Digite a ementa do curso:"));
+         break;
+         case 2:
+         try {
+         f.cadastraDis(JOptionPane.showInputDialog("Digite o codigo da disciplina \n [Deve conter 8 numeros]:"),
+         JOptionPane.showInputDialog("Digite o nome da disciplina: \n [minimo de 5 maximo de 300 letras] "),
+         JOptionPane.showInputDialog("Digite o nível de dificuldade[F,M,D]:"),
+         Integer.parseInt(JOptionPane.showInputDialog("Digite a carga horaria: \n [minimo de 20 maximo de 60 horas] ")),
+         JOptionPane.showInputDialog("Digite o metodo de avaliação[P,T]:"),
+         Integer.parseInt(JOptionPane.showInputDialog("Digite o numero de faltas: \n [minimo de 1 maximo de 30 faltas]")),
+         JOptionPane.showInputDialog("Digite a bibliografia do curso:"),
+         JOptionPane.showInputDialog("Digite a ementa do curso:"));
 
-                    } catch (NumberFormatException e) {
-                        JOptionPane.showMessageDialog(null, e.getMessage(), "ERRO", JOptionPane.ERROR_MESSAGE);
-                    } catch (DisciplinaException e) {
-                        JOptionPane.showMessageDialog(null, e.getMessage(), "ERRO", JOptionPane.ERROR_MESSAGE);
-                    }
-                    break;
+         } catch (NumberFormatException e) {
+         JOptionPane.showMessageDialog(null, e.getMessage(), "ERRO", JOptionPane.ERROR_MESSAGE);
+         } catch (DisciplinaException e) {
+         JOptionPane.showMessageDialog(null, e.getMessage(), "ERRO", JOptionPane.ERROR_MESSAGE);
+         }
+         break;
 
-                case 3:
-                    try {
-                        f.consultaAlunos(JOptionPane.showInputDialog("Digite a matricula do aluno"));
-                    } catch (AlunoException e) {
-                        JOptionPane.showMessageDialog(null, e.getMessage(), "ERRO", JOptionPane.ERROR_MESSAGE);
-                    }
+         case 3:
+         try {
+         f.consultaAlunos(JOptionPane.showInputDialog("Digite a matricula do aluno"));
+         } catch (AlunoException e) {
+         JOptionPane.showMessageDialog(null, e.getMessage(), "ERRO", JOptionPane.ERROR_MESSAGE);
+         }
 
-                    break;
+         break;
 
-                case 4:
-                    try {
-                        f.consultaDis(JOptionPane.showInputDialog("Digite o codigo da disciplina:"));
-                    } catch (DisciplinaException e) {
-                        JOptionPane.showMessageDialog(null, e.getMessage(), "ERRO", JOptionPane.ERROR_MESSAGE);
-                    }
-                    break;
+         case 4:
+         try {
+         f.consultaDis(JOptionPane.showInputDialog("Digite o codigo da disciplina:"));
+         } catch (DisciplinaException e) {
+         JOptionPane.showMessageDialog(null, e.getMessage(), "ERRO", JOptionPane.ERROR_MESSAGE);
+         }
+         break;
 
-                case 5:
+         case 5:
 
-                    //f.grava();
+         //f.grava();
 
-                    grava = false;
+         grava = false;
 
-                    break;
+         break;
 
-            }//fim do swhich
+         }//fim do swhich
 
-        }//fim do while    
+         }//fim do while */
     }
 }

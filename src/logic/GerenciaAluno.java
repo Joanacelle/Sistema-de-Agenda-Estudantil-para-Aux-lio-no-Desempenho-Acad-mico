@@ -1,6 +1,7 @@
 package Logic;
 
-import Excecoes.AlunoException;
+import excecoes.AlunoException;
+import infra.DAO;
 import infra.DAOFactory;
 import javax.swing.JOptionPane;
 
@@ -11,14 +12,16 @@ import javax.swing.JOptionPane;
 public class GerenciaAluno {
 
     private DAOFactory daofactory;
+    private DAO dao;
 
     public GerenciaAluno(int escolha) {
 
-        daofactory = (DAOFactory) DAOFactory.getDAOFactory(escolha);
+        daofactory = DAOFactory.getDAOFactory(escolha);
+        dao = daofactory.getInstanciaDAO(1);
         
     }
 
-    public void cadastraAluno(String mat, Aluno aluno) throws AlunoException {
+    public void cadastraAluno(String mat, Aluno aluno)throws AlunoException {
 
         if (!confirma(aluno)) {
 
@@ -26,15 +29,16 @@ public class GerenciaAluno {
 
         } else {
 
-            daofactory.getInstanciaDAO(1).cadastrar(aluno);
+            dao.cadastrar(aluno);
+            
             throw new AlunoException("Aluno cadastrado com sucesso");
         }
 
     }
 
-    public void consultaAlunos(String mat) throws AlunoException {
+    public void consultaAlunos(String mat)throws AlunoException {
 
-        Aluno aluno = (Aluno) daofactory.getInstanciaDAO(1).consultar(mat);
+        Aluno aluno = (Aluno) dao.consultar(mat);
         
         if (aluno != null) {
 
@@ -50,7 +54,7 @@ public class GerenciaAluno {
 
     public boolean confirma(Aluno aluno) {
 
-        Aluno a = (Aluno) daofactory.getInstanciaDAO(1).consultar(aluno.getMatricula());
+        Aluno a = (Aluno) dao.consultar(aluno.getMatricula());
 
         if (a != null) {
             return false;

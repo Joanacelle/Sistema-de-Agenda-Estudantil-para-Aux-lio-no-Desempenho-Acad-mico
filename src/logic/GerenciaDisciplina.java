@@ -5,6 +5,7 @@
 package Logic;
 
 import excecoes.DisciplinaException;
+import infra.DAO;
 import infra.DAOFactory;
 import javax.swing.JOptionPane;
 
@@ -15,17 +16,20 @@ import javax.swing.JOptionPane;
 public class GerenciaDisciplina {
 
     private DAOFactory daofactory;
+    private DAO dao;
 
     public GerenciaDisciplina(int escolha) {
 
         daofactory = DAOFactory.getDAOFactory(escolha);
+        dao = daofactory.getInstanciaDAO(2);
+        
     }
 
     public void cadastraDis(Disciplina disciplina, String codigo) throws DisciplinaException {
 
         boolean cadastra = true;
 
-        Disciplina dis = (Disciplina) daofactory.getInstanciaDAO(2).consultar(codigo);
+        Disciplina dis = (Disciplina) dao.consultar(codigo);
 
         if (dis != null) {
 
@@ -34,7 +38,7 @@ public class GerenciaDisciplina {
         }
         if (cadastra) {
 
-            daofactory.getInstanciaDAO(2).cadastrar(disciplina);
+            dao.cadastrar(disciplina);
 
             throw new DisciplinaException("Disciplina cadastrada com sucesso!");
 
@@ -49,7 +53,7 @@ public class GerenciaDisciplina {
 
     public void consultaDis(String cod) throws DisciplinaException {
 
-        Disciplina d = (Disciplina) daofactory.getInstanciaDAO(2).consultar(cod);
+        Disciplina d = (Disciplina) dao.consultar(cod);
 
         if (d != null) {
 
