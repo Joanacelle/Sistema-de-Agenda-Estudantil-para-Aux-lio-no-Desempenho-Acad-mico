@@ -39,9 +39,7 @@ public class GerenciaDisciplina {
         if (cadastra) {
 
             dao.cadastrar(disciplina);
-
-            throw new DisciplinaException("Disciplina cadastrada com sucesso!");
-
+            
         } else {
 
             throw new DisciplinaException("Já consta esse código em nossos registros!");
@@ -49,8 +47,7 @@ public class GerenciaDisciplina {
 
 
     }
-    //REVER ESSA PARTE DO CÓDIGO MAIS TARDE!
-
+    
     public void consultaDis(String cod) throws DisciplinaException {
 
         Disciplina d = (Disciplina) dao.consultar(cod);

@@ -30,8 +30,7 @@ public class GerenciaAluno {
         } else {
 
             dao.cadastrar(aluno);
-            
-            throw new AlunoException("Aluno cadastrado com sucesso");
+           
         }
 
     }

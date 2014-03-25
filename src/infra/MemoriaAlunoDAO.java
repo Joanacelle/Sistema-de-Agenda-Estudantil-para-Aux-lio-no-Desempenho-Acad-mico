@@ -27,11 +27,17 @@ public class MemoriaAlunoDAO implements DAO<Aluno> {
 
     public Aluno consultar(String mat) {
 
-        for (Aluno a : listaAluno) {
+        Iteration<Aluno> percorre = new Iteration<Aluno>(listaAluno);
+        
+        Aluno aluno;
+        
+        while (percorre.hasNext() == true) {
+            
+            aluno = percorre.next();
+            
+            if (mat.equals(aluno.getMatricula())) {
 
-            if (mat.equals(a.getMatricula())) {
-
-                return a;
+                return aluno;
 
             }
         }
